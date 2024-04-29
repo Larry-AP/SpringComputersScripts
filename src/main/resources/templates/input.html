@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert New Computer</title>
+</head>
+<body>
+<form th:object="${newComputers}" th:action="@{/update/{id}(id=${newComputers.id})}" method="POST" onsubmit="return validateForm()">
+
+	Brand: <input name="brand" size="20" th:field="*{brand}" required> <br />
+    Model: <input name="model" size="20" th:field="*{model}" required> <br />
+    Processor: <input name="processor" size="20" th:field="*{processor}" required> <br />
+    Ram: <input name="ram" size="20" th:field="*{ram}" type="number" required> <br />
+    Storage Size: <input name="storage" size="20" th:field="*{storage}" type="number" required> <br />
+    OS: <input name="OperatingSystem.os" size="20" th:field="*{OperatingSystem.os}" required> <br />
+    Version #: <input name="OperatingSystem.version" size="20" th:field="*{OperatingSystem.version}" type="number" required> <br />
+    Architecture: <input name="OperatingSystem.architecture" size="20" th:field="*{OperatingSystem.architecture}" required> <br />
+	
+	<input name="submit" type="submit" value="submit" />
+</form>
+<a href="viewAll">View all Computers</a>w
+
+<script>
+    function validateForm() {
+        var brand = document.forms["newComputers"]["brand"].value;
+        var model = document.forms["newComputers"]["model"].value;
+        var processor = document.forms["newComputers"]["processor"].value;
+        var ram = document.forms["newComputers"]["ram"].value;
+        var storage = document.forms["newComputers"]["storage"].value;
+        var os = document.forms["newComputers"]["OperatingSystem.os"].value;
+        var version = document.forms["newComputers"]["OperatingSystem.version"].value;
+        var architecture = document.forms["newComputers"]["OperatingSystem.architecture"].value;
+
+        if (brand === "" || model === "" || processor === "" || ram === "" || storage === "" || os === "" || version === "" || architecture === "") {
+            alert("All fields must be filled out");
+            return false;
+        }
+        
+        if (isNaN(ram) || isNaN(storage)) {
+            alert("RAM and Storage must be numeric values");
+            return false;
+        }
+        
+        if (ram <= 0 || storage <= 0) {
+            alert("RAM and Storage must be positive numbers");
+            return false;
+        }
+    }
+</script>
+
+</body>
+</html>
